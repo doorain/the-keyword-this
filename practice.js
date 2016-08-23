@@ -1,19 +1,32 @@
 //We're in a job interview. Answer the following questions (try to not look at your notes unless you have to).
   // 1) What is the purpose of the 'this keyword'?
 
-      //Answer
+      //Answer The value of "this", in a function, is the object that "owns" the
+      // function. In an object, it is the object itself. In an object
+      //constructor "this" does not have a value.
 
   // 2) What are the four rules that govern what the 'this keyword' is bound to and describe each?
 
-      //Answer
+        //Answer // 1. explicit binding:
+                    // by using .call, .apply, .bind to tell exactly where to get info for function
+                  //2. inplicit binding:
+                    // if .call, .apply, .bind are not found JS has to imply that you are refering to the info left of . ie: peron.animal().......
+                //3. default/Window :
+                    // used info on root file like this.title,  this.size,
+                //4. New Binding:
+                    // by using the new keyword you can great constructor functions.
+                    // a constructor function reats objects.
+
 
   // 3) What is the difference between call and apply?
 
-      //Answer
+      //Answer Call takes in parameters and apply uses arrays
 
   // 4) What does .bind do?
 
-      //Answer
+      //Answer  The bind() method creates a new function that, when called,
+      //has its this keyword set to the provided value, with a given sequence
+      // of arguments preceding any provided when the new function is called.
 
 
 //Next Problem
@@ -21,11 +34,20 @@
 //Create an object called user which has the following properties.
   //username --> which is a string
   //email --> which is a string
-  //getUsername --> which is a function that returns the current object's username property. *Don't use 'user' instead use the 'this' keyword*
+  //getUsername --> which is a function that returns the current object's username
+  //property. *Don't use 'user' instead use the 'this' keyword*
 
     //Code Here
+    var user = {
+      username: "doorain",
+      email: "dm@gmail.com",
+      getUsername : function(){
+        return this.username;
+      }
+    }
 
 //Now, invoke the getUsername method and verify you got the username of the object and not anything else.
+user.getUsername();
 
 
 //Next Problem
@@ -34,6 +56,18 @@
 // Write the function definitions which will make the following function invocations function properly.
 
   //Function Invocations Here
+  function Car(make, model, year){
+    this.make = make;
+    this.model = model;
+    this.year = year;
+    this.move = 0;
+    this.moveCar = function (){
+      this.move = this.move + 10;
+      return this.move;
+    }
+
+  }
+
 
 var prius = new Car('Toyota', 'Prius', 2011);
 var mustang = new Car('Ford', 'Mustang', 2013);
@@ -41,7 +75,8 @@ var mustang = new Car('Ford', 'Mustang', 2013);
 prius.moveCar(); //increments prius' move property by 10. Returns the new move property.
 mustang.moveCar(); //increments mustang' move property by 10. Returns the new move property.
 
-//Hint, you'll need to add a move property and write a moveCar function which is added to every object that is being returned from the Car function. You'll also need to use the 'this' keyword properly in order to make sure you're invoking moveCar on the right object (prius vs mustang).
+//Hint, you'll need to add a move property and write a moveCar function which is added to
+//every object that is being returned from the Car function. You'll also need to use the 'this' keyword properly in order to make sure you're invoking moveCar on the right object (prius vs mustang).
 
 
 
@@ -51,11 +86,14 @@ var getYear = function(){
   return this.year;
 };
 
-//Above you're given the getYear function. Using your prius and mustang objects from above, use the proper syntax that will allow for you to call the getYear function with the prius then the mustang objects being the focal objects. *Don't add getYear as a property on both objects*.
+//Above you're given the getYear function. Using your prius and mustang objects from above,
+// use the proper syntax that will allow for you to call the getYear function with the prius
+//then the mustang objects being the focal objects. *Don't add getYear as a property on both objects*.
 
 //Note(no tests)
   //Code Here
-
+getYear.apply(prius);
+getYear.call(mustang);
 
 //New Problem
 
@@ -69,11 +107,11 @@ var getMyUsername = function() {
  return this.username;
 };
 
-var userName = getMyUsername(); //Fix this
+var userName = getMyUsername.call(myUser); //Fix this
 
 //Above you're given an object, a function, and a setTimeout invocation. After 5 seconds, what will the getUsername function return?
 //Note(no tests)
-  //Answer Here
+  //Answer Here "undefined"
 
 //In the example above, what is the 'this keyword' bound to when getUsername runs?
 
